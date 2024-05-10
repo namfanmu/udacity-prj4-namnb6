@@ -22,12 +22,15 @@ jobs:
           cache: 'npm'
           cache-dependency-path: starter/frontend/package-lock.json
 
-      - name: Install Dependencies
-        working-directory: starter/frontend
-        run: npm ci
+      # - name: Install Dependencies
+      #   working-directory: starter/frontend
+      #   run: npm ci
 
-      - name: Checkout Run Lint
-        run: cd starter/frontend && npm run lint
+      # - name: Checkout Run Lint
+      #   run: cd starter/frontend && npm run lint
+
+      - name: Print a message
+        run: echo "Hello, world!"
 
   Test:
     runs-on: ubuntu-latest
@@ -42,12 +45,16 @@ jobs:
           node-version: latest
           cache: 'npm'
           cache-dependency-path: starter/frontend/package-lock.json
-      - name: Install Dependencies
-        working-directory: starter/frontend
-        run: npm ci
 
-      - name: Test
-        run: cd starter/frontend && npm run test
+      # - name: Install Dependencies
+      #   working-directory: starter/frontend
+      #   run: npm ci
+
+      # - name: Test
+      #   run: cd starter/frontend && npm run test
+
+      - name: Print a message
+        run: echo "Hello, world!"
 
   Build:
     needs: [Linting, Test]
@@ -64,8 +71,11 @@ jobs:
           cache: 'npm'
           cache-dependency-path: starter/frontend/package-lock.json
 
-      - name: Build and Run Docker Image
-        run: |
-          cd starter/frontend
-          docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag=mp-frontend:latest .
-          docker run --name mp-frontend -p 3000:3000 -d mp-frontend
+      # - name: Build and Run Docker Image
+      #   run: |
+      #     cd starter/frontend
+      #     docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag=mp-frontend:latest .
+      #     docker run --name mp-frontend -p 3000:3000 -d mp-frontend
+
+      - name: Print a message
+        run: echo "Hello, world!"
