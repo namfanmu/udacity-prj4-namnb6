@@ -8,6 +8,6 @@ def test_movies_endpoint_returns_200():
             status_code = os.getenv("FAIL_TEST", 200)
             response = client.get("/movies/")
             assert response.status_code == status_code
-    except:
+    except Exception:
         return True
 
