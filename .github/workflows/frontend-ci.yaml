@@ -65,5 +65,9 @@ jobs:
           cache: 'npm'
           cache-dependency-path: starter/frontend/package-lock.json
 
+      - name: Install Dependencies
+        working-directory: starter/frontend
+        run: npm ci
+
       - name: Build
         run: cd starter/frontend && npm run build
