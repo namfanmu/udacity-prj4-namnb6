@@ -26,7 +26,7 @@ jobs:
         working-directory: starter/frontend
         run: npm ci
 
-      - name: Checkout Run Lint
+      - name: Run Lint
         run: cd starter/frontend && npm run lint
 
   TEST:
@@ -47,7 +47,7 @@ jobs:
         working-directory: starter/frontend
         run: npm ci
 
-      - name: Test
+      - name: Run Test
         run: cd starter/frontend && npm run test
 
   BUILD:
@@ -65,5 +65,5 @@ jobs:
           cache: 'npm'
           cache-dependency-path: starter/frontend/package-lock.json
 
-      - name: Build and Run Docker Image
+      - name: Build
         run: cd starter/frontend && npm run build
