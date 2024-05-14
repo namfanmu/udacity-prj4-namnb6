@@ -72,6 +72,7 @@ jobs:
           pip install pipenv
           pip install flake8
           pip install flask
+          pip install Flask-Cors
 
       - name: Build
         run: |
