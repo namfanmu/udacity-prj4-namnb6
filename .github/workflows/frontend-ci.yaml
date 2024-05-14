@@ -70,4 +70,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: cd starter/frontend && npm run build
+        run: |
+          cd starter/frontend
+          docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag=mp-frontend:latest .
+          docker run --name mp-frontend -p 3000:3000 -d mp-frontend
