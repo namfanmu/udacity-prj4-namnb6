@@ -10,4 +10,3 @@ def test_movies_endpoint_returns_200():
             assert response.status_code == status_code
     except Exception:
         return True
-
