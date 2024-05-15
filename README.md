@@ -1,25 +1,24 @@
 # Create EKS Cluster
 
-apt update
+1. update
+   apt update
 
-# for ARM systems, set ARCH to: `arm64`, `armv6` or `armv7`
+2. install eksctl
+   ARCH=amd64
+   PLATFORM=$(uname -s)_$ARCH
+   curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
+   curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt" | grep $PLATFORM | sha256sum --check
+tar -xzf eksctl*$PLATFORM.tar.gz -C /tmp && rm eksctl\*$PLATFORM.tar.gz
+   sudo mv /tmp/eksctl /usr/local/bin
 
-ARCH=amd64
-PLATFORM=$(uname -s)_$ARCH
+3. Configure aws acc
+   aws configure
 
-curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
-
-# (Optional) Verify checksum
-
-curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt" | grep $PLATFORM | sha256sum --check
-
-tar -xzf eksctl*$PLATFORM.tar.gz -C /tmp && rm eksctl*$PLATFORM.tar.gz
-
-sudo mv /tmp/eksctl /usr/local/bin
-
-aws configure
-
-eksctl create cluster --name prj4-cluster --version 1.29 --region us-east-1 --nodegroup-name prj4-nodes --node-type t3.small --nodes 1 --nodes-min 1 --nodes-max 2
+4. Create EKS cluster
+   eksctl create cluster --name prj4-cluster --version 1.29 --region us-east-1 --nodegroup-name prj4-nodes --node-type t3.small --nodes 1 --nodes-min 1 --nodes-max 2
+   aws eks --region us-east-1 update-kubeconfig --name prj4-cluster
+   kubectl config current-context  
+   kubectl config view
 
 # Movie Picture Pipeline
 
