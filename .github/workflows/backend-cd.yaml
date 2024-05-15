@@ -99,5 +99,5 @@ jobs:
           IMAGE_TAG: latest
           REPO_NAME: namnb6-backend
         run: |
-          kustomize edit set image namnb6-backend=915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG --validate=false
+          kustomize edit set image namnb6-backend=915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
           kustomize build | kubectl apply -f -
