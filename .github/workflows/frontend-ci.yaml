@@ -12,17 +12,17 @@ jobs:
     environment: Development Environment
 
     steps:
-      - name: Check the Repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use Node.js
+      - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: latest
           cache: 'npm'
           cache-dependency-path: starter/frontend/package-lock.json
 
-      - name: Install Dependencies
+      - name: Install dependencies
         working-directory: starter/frontend
         run: npm ci
 
@@ -33,17 +33,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check the Repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use Node.js
+      - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: latest
           cache: 'npm'
           cache-dependency-path: starter/frontend/package-lock.json
 
-      - name: Install Dependencies
+      - name: Install dependencies
         working-directory: starter/frontend
         run: npm ci
 
@@ -55,17 +55,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check the Repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use Node.js
+      - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: latest
           cache: 'npm'
           cache-dependency-path: starter/frontend/package-lock.json
 
-      - name: Install Dependencies
+      - name: Install dependencies
         working-directory: starter/frontend
         run: npm ci
 

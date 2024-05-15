@@ -1,3 +1,26 @@
+# Create EKS Cluster
+
+apt update
+
+# for ARM systems, set ARCH to: `arm64`, `armv6` or `armv7`
+
+ARCH=amd64
+PLATFORM=$(uname -s)_$ARCH
+
+curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
+
+# (Optional) Verify checksum
+
+curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt" | grep $PLATFORM | sha256sum --check
+
+tar -xzf eksctl*$PLATFORM.tar.gz -C /tmp && rm eksctl*$PLATFORM.tar.gz
+
+sudo mv /tmp/eksctl /usr/local/bin
+
+aws configure
+
+eksctl create cluster --name prj4-cluster --version 1.29 --region us-east-1 --nodegroup-name prj4-nodes --node-type t3.small --nodes 1 --nodes-min 1 --nodes-max 2
+
 # Movie Picture Pipeline
 
 You've been brought on as the DevOps resource for a development team that manages a web application that is a catalog of Movie Picture movies. They're in dire need of automating their development workflows in hopes of accelerating their release cycle. They'd like to use Github Actions to automate testing, building and deploying their applications to an existing Kubernetes cluster.
@@ -50,7 +73,7 @@ In the `starter` folder, you'll find 2 folders, one named `frontend` and one nam
       2. The tag applied to the image should be the git SHA of the commit that triggered the build
 
 **⚠️ NOTE**
-Once you begin work on Continuous Deployment, you'll need to first setup the AWS and Kubernetes environment. Follow the [instructions below](#setting-up-continuous-deployment-environment)  instructions only when you're ready to start testing your deployments.
+Once you begin work on Continuous Deployment, you'll need to first setup the AWS and Kubernetes environment. Follow the [instructions below](#setting-up-continuous-deployment-environment) instructions only when you're ready to start testing your deployments.
 
 ## Setting up Continuous Deployment environment
 
@@ -81,10 +104,10 @@ terraform output
 2. Launch the Cloud Gateway and go to the IAM service.
 3. Under users, you should only see the `github-action-user` user account
 4. Click the account and go to `Security Credentials`
-5. Under `Access keys`  select `Create access key`
+5. Under `Access keys` select `Create access key`
 6. Select `Application running outside AWS` and click `Next`, then `Create access key` to finish creating the keys
 7. On the last page, make sure to copy/paste these keys for storing in Github Secrets
-![image](https://user-images.githubusercontent.com/57732284/221991526-ec4af661-b200-48cd-9087-6f1b3b9820b3.png)
+   ![image](https://user-images.githubusercontent.com/57732284/221991526-ec4af661-b200-48cd-9087-6f1b3b9820b3.png)
 
 ### Add Github Action user to Kubernetes
 
@@ -105,13 +128,13 @@ We've provided the below list of dependencies to assist in the case you'd like t
 
 All of the tools below will be available in the workspace
 
-* [docker](https://docs.docker.com/desktop/install/debian/) - Used to build the frontend and backend applications
-* [kubectl](https://kubernetes.io/docs/tasks/tools/) - Used to apply the kubernetes manifests
-* [pipenv](https://pipenv.pypa.io/en/latest/install/#pragmatic-installation-of-pipenv) - Used for mananging Python version and dependencies
-* [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) - Used for managing NodeJS versions
-* [tfswitch](https://tfswitch.warrensbox.com/Install/) Used for managing Terraform versions
-* [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/) Used for building the Kubernetes manifests dynamically in the CI environment
-* [jq](https://stedolan.github.io/jq/download/) for parsing JSON more easily on the command line
+- [docker](https://docs.docker.com/desktop/install/debian/) - Used to build the frontend and backend applications
+- [kubectl](https://kubernetes.io/docs/tasks/tools/) - Used to apply the kubernetes manifests
+- [pipenv](https://pipenv.pypa.io/en/latest/install/#pragmatic-installation-of-pipenv) - Used for mananging Python version and dependencies
+- [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) - Used for managing NodeJS versions
+- [tfswitch](https://tfswitch.warrensbox.com/Install/) Used for managing Terraform versions
+- [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/) Used for building the Kubernetes manifests dynamically in the CI environment
+- [jq](https://stedolan.github.io/jq/download/) for parsing JSON more easily on the command line
 
 ## Frontend Development notes
 
