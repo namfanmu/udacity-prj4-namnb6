@@ -99,6 +99,5 @@ jobs:
           IMAGE_TAG: latest
           REPO_NAME: namnb6-backend
         run: |
-          aws eks update-kubeconfig --name prj4-cluster --region us-east-1
           kustomize edit set image namnb6-backend=915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG --validate=false
           kustomize build | kubectl apply -f -
