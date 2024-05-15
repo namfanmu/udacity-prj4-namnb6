@@ -85,7 +85,7 @@ jobs:
         working-directory: starter/backend
         env:
           IMAGE_TAG: latest
-          REPO_NAME: namnb6-backend
+          REPO_NAME: backend
         run: |
           docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag 915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG .
           docker push 915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
@@ -97,7 +97,7 @@ jobs:
         working-directory: starter/backend/k8s
         env:
           IMAGE_TAG: latest
-          REPO_NAME: namnb6-backend
+          REPO_NAME: backend
         run: |
-          kustomize edit set image namnb6-backend=915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
+          kustomize edit set image backend=915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
           kustomize build | kubectl apply -f -
