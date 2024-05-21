@@ -81,7 +81,7 @@ jobs:
           pip install flask
           pip install Flask-Cors
 
-      - name: Build
+      - name: Build and Push image to ECR
         working-directory: starter/backend
         env:
           IMAGE_TAG: ${{ github.sha }}
@@ -100,5 +100,5 @@ jobs:
           IMAGE_TAG: ${GITHUB_SHA::7}
           REPO_NAME: backend
         run: |
-          kustomize edit set image backend=915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
+          kustomize edit set image backend=915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG --validate=false
           kustomize build | kubectl apply -f -
