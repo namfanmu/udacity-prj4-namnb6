@@ -84,11 +84,12 @@ jobs:
       - name: Build
         working-directory: starter/frontend
         env:
-          IMAGE_TAG: ${GITHUB_SHA::7}
+          IMAGE_TAG: ${{ github.sha }}
           REPO_NAME: frontend
         run: |
-          docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag 915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG .
-          docker push 915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
+          TAG=$(echo $IMAGE_TAG | cut -c1-7)
+          docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag 915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$TAG .
+          docker push 915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$TAG
 
       - name: Configure Kubeconfig
         run: aws eks update-kubeconfig --name prj4-cluster --region us-east-1
