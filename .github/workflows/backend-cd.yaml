@@ -95,10 +95,4 @@ jobs:
         run: aws eks update-kubeconfig --name prj4-cluster --region us-east-1
 
       - name: Deploy Docker Image to Amazon EKS
-        working-directory: starter/backend/k8s
-        env:
-          IMAGE_TAG: ${GITHUB_SHA::7}
-          REPO_NAME: backend
-        run: |
-          kustomize edit set image backend=915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG --validate=false
-          kustomize build | kubectl apply -f -
+        run: aws eks update-kubeconfig --name prj4-cluster --region us-east-1
