@@ -84,7 +84,7 @@ jobs:
       - name: Build and Push Docker Image
         working-directory: starter/backend
         env:
-          IMAGE_TAG: latest
+          IMAGE_TAG: ${GITHUB_SHA::7}
           REPO_NAME: backend
         run: |
           docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag 915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG .
@@ -96,6 +96,8 @@ jobs:
       - name: Deploy Docker Image to Amazon EKS
         working-directory: starter/backend/k8s
         env:
-          IMAGE_TAG: latest
+          IMAGE_TAG: ${GITHUB_SHA::7}
           REPO_NAME: backend
-        run: aws eks update-kubeconfig --name prj4-cluster --region us-east-1
+        run: |
+          kustomize edit set image backend=915666190922.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
+          kustomize build | kubectl apply -f -
